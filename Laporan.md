@@ -151,6 +151,52 @@ Pengaruh pada Keputusan Bisnis atau Pengalaman Pengguna:
 - Keputusan Bisnis: Collaborative filtering dapat menjadi pilihan yang baik untuk bisnis yang ingin mendorong interaksi sosial dan pertukaran rekomendasi antar pengguna. Namun, perlu diingat bahwa kendala terhadap item baru dapat membatasi efektivitas model, terutama dalam lingkungan dengan banyak produk baru.
 - Pengalaman Pengguna: Model ini dapat memberikan pengalaman yang lebih dinamis dan interaktif bagi pengguna dengan menawarkan rekomendasi berdasarkan tingkat kesamaan dengan pengguna lain. Namun, keterbatasan dalam menangani item baru dapat membuat pengguna kehilangan potensi menemukan konten terbaru atau unik.
 
+Cara Kerja Algoritma: RecommenderNet
+
+1. Inisialisasi Model:
+ * Model RecommenderNet memiliki tiga layer embedding: user embedding, user bias, book embedding, dan book bias.
+ * Setiap embedding layer bertujuan untuk memetakan user atau buku ke dalam ruang vektor yang berdimensi sesuai dengan embedding_size.
+
+2. Forward Pass (Metode Call):
+ * Pada setiap iterasi, model menerima input berupa pasangan User-ID dan ISBN.
+ * User-ID dan ISBN diubah menjadi representasi vektor dengan embedding layer.
+ * Kemudian, dilakukan operasi dot product antara vektor user dan vektor buku.
+ * Ditambahkan user bias dan book bias.
+ * Hasilnya diaktivasi dengan fungsi sigmoid untuk menghasilkan nilai antara 0 dan 1.
+
+3. Loss Function dan Optimizer:
+ * Model menggunakan Binary Crossentropy sebagai loss function karena tugas ini dapat diterjemahkan sebagai masalah klasifikasi biner (user suka/tidak suka).
+ * Optimizer yang digunakan adalah Adam dengan learning rate sebesar 0.001.
+
+4. Training:
+ * Model dilatih dengan data latih menggunakan fungsi fit.
+ * Batch size sebesar 8 dan dilakukan selama 50 epochs.
+ * Metrics evaluasi yang digunakan adalah Root Mean Squared Error (RMSE).
+
+5. Evaluasi:
+ * Evaluasi dilakukan dengan memonitor nilai RMSE pada setiap epoch.
+ * Grafik hasil training dan validasi ditampilkan untuk memantau performa model.
+
+6. Rekomendasi:
+ * Setelah model dilatih, model dapat digunakan untuk memberikan rekomendasi.
+ * Pada contoh ini, dipilih pengguna secara acak, lalu diambil buku yang pernah dibaca oleh pengguna tersebut.
+ * Kemudian, model digunakan untuk merekomendasikan buku yang belum dibaca oleh pengguna.
+
+Cara Kerja Algoritma: TF-IDF Cosine Similarity
+
+1. TF-IDF Vectorizer:
+ * Fitur nama penulis buku diolah menggunakan TF-IDF Vectorizer.
+ * TF-IDF (Term Frequency-Inverse Document Frequency) digunakan untuk menemukan representasi fitur penting dari setiap penulis buku.
+
+2. Cosine Similarity:
+ * Setelah TF-IDF Vectorizer menghasilkan matriks vektor TF-IDF, dilakukan perhitungan cosine similarity antar buku.
+ * Cosine similarity mengukur kesamaan antara dua vektor dalam ruang vektor.
+ * Hasilnya berupa matriks similarity antar buku, di mana nilai tinggi menunjukkan tingkat kesamaan yang tinggi.
+
+3. Rekomendasi:
+ * Dengan matriks cosine similarity yang telah diperoleh, rekomendasi buku dapat diberikan berdasarkan kesamaan tersebut.
+ * Sebagai contoh, jika ingin mencari buku yang mirip dengan 'Wizard of Oz (Aladdin Classics)'.
+
 Hasil dari masing-masing model:
 
 1. ***Content-based filtering***
