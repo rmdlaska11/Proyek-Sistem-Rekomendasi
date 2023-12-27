@@ -258,7 +258,7 @@ Hasil evaluasi dari masing-masing model:
 
 1. ***Content-based filtering***
 
-Buku yang direkomendasikan di masa lalu yaitu 'Wizard of Oz (Aladdin Classics)' dengan dengan penulis  L. Frank Baum. Dari hasil evaluasi presisi, didapatkan nilai 75%. Presisi dihitung dengan membandingkan jumlah rekomendasi yang relevan dengan total rekomendasi yang diberikan. Dalam konteks ini, nilai 75% mengindikasikan bahwa dari 5 rekomendasi yang diberikan, 3 di antaranya relevan dengan preferensi pengguna.
+Buku yang direkomendasikan di masa lalu yaitu 'Wizard of Oz (Aladdin Classics)' dengan dengan penulis  L. Frank Baum. Dari hasil evaluasi presisi, didapatkan nilai 60%. Presisi dihitung dengan membandingkan jumlah rekomendasi yang relevan dengan total rekomendasi yang diberikan kemudian dikali 100%. Dalam konteks ini, nilai 60% mengindikasikan bahwa dari 5 rekomendasi yang diberikan, 3 di antaranya relevan dengan preferensi pengguna.
 
 2.  ***Collaborative filtering***
 
@@ -285,7 +285,7 @@ Berikut visualisasi RMSE menggunakan *collaborative filtering*:
 
 Gambar 2. Visualisasi RMSE 
 
-Bisa dilihat pada Gambar 2. proses training model cukup smooth dan model konvergen pada epochs sekitar 50. Dari proses latih, memperoleh nilai error akhir sebesar sekitar 0.15 dan error pada data validasi sebesar 0.35 . Nilai tersebut cukup bagus untuk sistem rekomendasi.
+Pada Gambar 2, dapat diamati bahwa proses pelatihan model berjalan lancar, dan model mencapai konvergensi setelah sekitar 50 epochs. Dari proses pelatihan tersebut, diperoleh nilai error akhir sekitar 0.15 dan error pada data validasi sekitar 0.35. Meskipun nilai tersebut tergantung pada konteks aplikasi dan kebutuhan bisnis, dalam proyek ini nilai-nilai tersebut dianggap memadai untuk memenuhi kebutuhan sistem rekomendasi yang telah diimplementasikan.
 
 **Kesimpulan** :  Cukup berhasil menghasilkan 5 rekomendasi buku terbaik menggunakan teknik *content-based filtering* dengan presisi 75 persen dan berhasil menghasilkan 10 rekomendasi buku terbaik menggunakan teknik *collaborative filtering* dengan RMSE sebesar 0.15 .
 
