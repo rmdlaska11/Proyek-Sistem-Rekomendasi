@@ -233,7 +233,8 @@ n = banyaknya data
 
 Berikut visualisasi RMSE menggunakan *collaborative filtering*:
 
-![RMSE](https://github.com/rmdlaska11/Proyek-Sistem-Rekomendasi/assets/121273531/b21f9d0d-af87-4550-adf0-385a89fc2af2)
+![RMSE](https://github.com/rmdlaska11/Proyek-Sistem-Rekomendasi/assets/121273531/50469802-9bfc-4f12-b7bd-64f7913bb49d)
+
 
 
 Gambar 2. Visualisasi RMSE 
