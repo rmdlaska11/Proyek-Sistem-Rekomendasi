@@ -13,8 +13,8 @@ Untuk mengatasi permasalahan tersebut, dikembangkanlah sistem rekomendasi buku.
 ### Problem Statements
 
 Berdasarkan latar belakang yang telah dijelaskan diatas, terdapat beberapa masalah yaitu:
-- Bagaimana kita dapat membuat sistem rekomendasi buku yang dapat dipersonalisasi berdasarkan data pengguna dengan menerapkan teknik content-based filtering?
-- Bagaimana kita dapat menggunakan data rating yang sudah ada untuk menghasilkan rekomendasi buku baru yang mungkin disukai oleh pengguna, sambil memastikan bahwa buku-buku tersebut belum pernah dibaca sebelumnya oleh pengguna?
+- Bagaimana cara membuat sistem rekomendasi buku yang dapat dipersonalisasi berdasarkan data pengguna dengan menerapkan teknik content-based filtering?
+- Bagaimana cara menggunakan data rating yang sudah ada untuk menghasilkan rekomendasi buku baru yang mungkin disukai oleh pengguna, sambil memastikan bahwa buku-buku tersebut belum pernah dibaca sebelumnya oleh pengguna?
 
 ### Goals
 
@@ -33,7 +33,6 @@ Algoritma *content based filtering* digunakan untuk merekomendasikan buku berdas
 Data atau dataset yang digunakan pada proyek *machine learning* ini adalah data *Book Recommendation* dataset yang didapat dari situs Kaggle. 
 Terdapat 3 file data dalam dataset. 
 Link dataset dapat dilihat dari tautan berikut : [*Book Recommendation* Dataset](https://www.kaggle.com/datasets/arashnic/book-recommendation-dataset).
-
 
 ### Variabel-variabel pada *Book Recommendation* dataset adalah sebagai berikut:  
 
@@ -182,12 +181,31 @@ Dapat dilihat pada tabel 6, ada 5 buku yang direkomendasikan penulisnya yang ham
 
 Berikut merupakan buku berdasarkan *rating* yang ada :
 
-![Prediksi CF](https://github.com/rmdlaska11/Proyek-Sistem-Rekomendasi/assets/121273531/74a41062-ae62-438c-85a9-629c5dde3e58)
+Rekomendasi Buku untuk Pengguna: 277427
 
+Tabel 7. Buku dengan Rating Tinggi dari Pengguna:
 
-Gambar 1. Hasil rekomendasi algoritma *collaborative filtering*
+| No |	Judul                                          | Buku	Penulis      |
+|---:|------------------------------------------------:|------------------:|
+| 1	 | Politically Correct Bedtime Stories	           | James Finn Garner |
+| 2	 | Its Obvious You Wont Survive By Your Wit	       | Scott Adams       |
+| 3	 | Unnatural Selections                            |	Gary Larson      |
+| 4	 | Dilbert Fugitive From The Cubicle Police	       | Scott Adams       |
+| 5	 | Dilbert: Seven Years Of Highly Defective People | Scott Adams       |
 
-Pada Gambar 1, Buku yang memiliki *rating* tinggi dari pengguna paling banyak ditulis oleh James Finn Garner
+Tabel 8. Top 10 Rekomendasi Buku
+| No |	Judul                                          | Buku	Penulis     |
+|---:|------------------------------------------------:|-----------------:|
+| 1	 | The Giver (21st Century Reference)		           | LOIS LOWRY       |
+| 2	 | Angel Eyes                                      | Eric Lustbader   |
+| 3	 | Reaper Man	                                     |	Terry Pratchett |
+| 4	 | Queen of the Darkness (Black Jewels Trilogy)    | Anne Bishop      |
+| 5	 | Blackberry Wine	                               | Joanne Harris    |
+| 6	 | The Perks of Being a Wallflower		             | Stephen Chbosky  |
+| 7	 | The Golden Compass (His Dark Materials, Book 1) | PHILIP PULLMAN   |
+| 8	 | Kushiel's Dart		                               | Jacqueline Carey |
+| 9	 | Yukon Ho!	                                     | Bill Watterson   |
+| 10 | Comme un roman	                                 | Daniel Pennac    |
 
 ## Evaluation
 Hasil evaluasi dari masing-masing model:
