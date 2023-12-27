@@ -13,14 +13,14 @@ Untuk mengatasi permasalahan tersebut, dikembangkanlah sistem rekomendasi buku.
 ### Problem Statements
 
 Berdasarkan latar belakang yang telah dijelaskan diatas, terdapat beberapa masalah yaitu:
-- Berdasarkan data mengenai pengguna, bagaimana membuat sistem rekomendasi buku yang dipersonalisasi dengan teknik *content-based filtering*?
-- Bagaimana kita dapat menggunakan data rating yang ada untuk merekomendasikan buku baru yang mungkin disukai oleh pengguna dan belum pernah dibacanya sebelumnya? 
+- Bagaimana kita dapat membuat sistem rekomendasi buku yang dapat dipersonalisasi berdasarkan data pengguna dengan menerapkan teknik content-based filtering?
+- Bagaimana kita dapat menggunakan data rating yang sudah ada untuk menghasilkan rekomendasi buku baru yang mungkin disukai oleh pengguna, sambil memastikan bahwa buku-buku tersebut belum pernah dibaca sebelumnya oleh pengguna?
 
 ### Goals
 
 Untuk menjawab masalah yang ada, akan dibuat model prediksi dengan tujuan sebagai berikut:
-- Menghasilkan sejumlah rekomendasi buku yang dipersonalisasi untuk pengguna dengan teknik *content-based filtering*.
-- Menghasilkan sejumlah rekomendasi buku yang sesuai dengan preferensi pengguna dan belum pernah dibaca sebelumnya dengan teknik *collaborative filtering*.
+- Mengembangkan model content-based filtering yang mampu menghasilkan rekomendasi buku yang sesuai dengan preferensi unik setiap pengguna. Keberhasilan model akan diukur melalui akurasi dan relevansi rekomendasi.
+- Membangun model collaborative filtering yang dapat memanfaatkan data rating untuk mengidentifikasi dan merekomendasikan buku-buku yang mungkin disukai oleh pengguna, dengan memastikan bahwa buku-buku tersebut belum pernah diakses oleh pengguna sebelumnya. Keberhasilan model akan diukur melalui keakuratan dan keberagaman rekomendasi.
 
 ### Solution statements
 Solusi yang dapat dilakukan untuk sistem rekomendasi buku dengan menggunakan 2 algoritma *machine learning* yaitu:
@@ -182,7 +182,7 @@ Dapat dilihat pada tabel 6, ada 5 buku yang direkomendasikan penulisnya yang ham
 
 Berikut merupakan buku berdasarkan *rating* yang ada :
 
-![Prediksi CF]!(https://github.com/rmdlaska11/Proyek-Sistem-Rekomendasi/assets/121273531/74a41062-ae62-438c-85a9-629c5dde3e58)
+![Prediksi CF](https://github.com/rmdlaska11/Proyek-Sistem-Rekomendasi/assets/121273531/74a41062-ae62-438c-85a9-629c5dde3e58)
 
 
 Gambar 1. Hasil rekomendasi algoritma *collaborative filtering*
@@ -194,11 +194,7 @@ Hasil evaluasi dari masing-masing model:
 
 1. ***Content-based filtering***
 
-Buku yang direkomendasikan di masa lalu yaitu 'Wizard of Oz (Aladdin Classics)' dengan dengan penulis  L. Frank Baum. Top 5 item hasil rekomendasi buku semua memilki dengan penulis yang memiliki nama yang hampir sama yaitu  L. Frank Baum. Dengan begitu hasil rekomendasi dapat dievaluasi menggunakan rumus presisi berikut :
-
-*recommender system precision*: P = $\frac{n of our recommendations that are relevant}{n of items we recommended}$
-
-Dengan begitu hasil presisi yang didapat adalah 75 persen .
+Buku yang direkomendasikan di masa lalu yaitu 'Wizard of Oz (Aladdin Classics)' dengan dengan penulis  L. Frank Baum. Dari hasil evaluasi presisi, didapatkan nilai 75%. Presisi dihitung dengan membandingkan jumlah rekomendasi yang relevan dengan total rekomendasi yang diberikan. Dalam konteks ini, nilai 75% mengindikasikan bahwa dari 5 rekomendasi yang diberikan, 3 di antaranya relevan dengan preferensi pengguna.
 
 2.  ***Collaborative filtering***
 
