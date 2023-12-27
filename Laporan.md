@@ -287,7 +287,7 @@ Gambar 2. Visualisasi RMSE
 
 Pada Gambar 2, dapat diamati bahwa proses pelatihan model berjalan lancar, dan model mencapai konvergensi setelah sekitar 50 epochs. Dari proses pelatihan tersebut, diperoleh nilai error akhir sekitar 0.15 dan error pada data validasi sekitar 0.35. Meskipun nilai tersebut tergantung pada konteks aplikasi dan kebutuhan bisnis, dalam proyek ini nilai-nilai tersebut dianggap memadai untuk memenuhi kebutuhan sistem rekomendasi yang telah diimplementasikan.
 
-**Kesimpulan** :  Cukup berhasil menghasilkan 5 rekomendasi buku terbaik menggunakan teknik *content-based filtering* dengan presisi 75 persen dan berhasil menghasilkan 10 rekomendasi buku terbaik menggunakan teknik *collaborative filtering* dengan RMSE sebesar 0.15 .
+**Kesimpulan** :  Cukup berhasil menghasilkan 5 rekomendasi buku terbaik menggunakan teknik *content-based filtering* dengan presisi 60 persen dan berhasil menghasilkan 10 rekomendasi buku terbaik menggunakan teknik *collaborative filtering* dengan RMSE sebesar 0.15 .
 
 **Referensi** :
 
