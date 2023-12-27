@@ -2,7 +2,7 @@
 
 ## Domain Proyek
 
-Buku menyimpan berbagai informasi yang mencakup iptek, seni budaya, ekonomi, politik, sosial, hingga pertahanan. Membaca buku tidak hanya menambah pengetahuan, tetapi juga membuka wawasan intelektual, memperkaya diri, dan mencegah kenakalan anak-anak. Sayangnya, Indonesia memiliki minat baca rendah, padahal sebagai negara besar, kita punya potensi untuk menjadi unggul. Membina minat baca sejak dini penting, karena anak-anak yang terbiasa membaca memiliki peluang lebih besar untuk mengembangkan pengetahuan mereka [1].
+Buku menyimpan berbagai informasi yang mencakup iptek, seni budaya, ekonomi, politik, sosial, hingga pertahanan. Membaca buku tidak hanya menambah pengetahuan, tetapi juga membuka wawasan intelektual, memperkaya diri, dan mencegah kenakalan anak-anak. Sayangnya, Indonesia memiliki minat baca rendah, padahal sebagai negara besar, Indonesia punya potensi untuk menjadi unggul. Membina minat baca sejak dini penting, karena anak-anak yang terbiasa membaca memiliki peluang lebih besar untuk mengembangkan pengetahuan mereka [1].
 
 
 Sistem rekomendasi merupakan aplikasi yang memberikan saran kepada pengguna untuk membantu mereka membuat keputusan yang diinginkan. Untuk memberikan rekomendasi produk, sistem ini menggunakan filter data dengan mempertimbangkan faktor-faktor seperti perilaku pengguna, deskripsi produk, serta preferensi dan kebiasaan kelompok pengguna yang memiliki kesamaan dalam menilai suatu produk. Penelitian sebelumnya oleh Rizqi dan Arrie (2021) menunjukkan bahwa penggunaan sistem rekomendasi berbasis *deep learning* dapat meningkatkan kinerja dan kepuasan pengguna aplikasi.[2].
@@ -14,7 +14,7 @@ Untuk mengatasi permasalahan tersebut, dikembangkanlah sistem rekomendasi buku.
 
 Berdasarkan latar belakang yang telah dijelaskan diatas, terdapat beberapa masalah yaitu:
 - Berdasarkan data mengenai pengguna, bagaimana membuat sistem rekomendasi buku yang dipersonalisasi dengan teknik *content-based filtering*?
-- Dengan data rating yang dimiliki, bagaimana merekomendasikan buku lain yang mungkin disukai dan belum pernah dibaca oleh pengguna? 
+- Bagaimana kita dapat menggunakan data rating yang ada untuk merekomendasikan buku baru yang mungkin disukai oleh pengguna dan belum pernah dibacanya sebelumnya? 
 
 ### Goals
 
@@ -98,35 +98,59 @@ Pada Tabel 3, dapat dilihat bahwa:
 *   Terdapat 2 buah kolom bertipe int64 yaitu User-ID dan Book-rating.
 *   Terdapat 1 buah kolom bertipe object yaitu ISBN.
   
+Deskripsi dari variabel ratings dapat dilihat pada tabel 4 berikut:
+
+Tabel 4. Deskripsi variabel ratings
+
+|       |      User-ID |   Book-Rating |     
+|------:|-------------:|---------------|
+| count | 30000.000000 |  30000.000000 |
+|  mean | 91215.561800 |      3.062533 |
+|   std | 127794.30475 |      3.901264 |
+|   min |     2.000000 |      0.000000 |
+|   25% |  2977.000000 |      0.000000 |
+|   50% |  5970.000000 |      0.000000 |
+|   75% | 277478.00000 |      7.000000 |
+|   max | 278854.00000 |     10.000000 |
+
+Pada tabel 4, dapat dilihat dari nilai max dan min bahwa nilai rating terbesar yaitu 10 dan nilai rating terkecil yaitu 0
 
 ## Data Preparation
 Dalam proses persiapan data dibagi menjadi 2 berdasarkan algoritma yang digunakan yaitu pada *content-based filtering* dan *collaborative filtering* . Berikut tahapan-tahapan persiapan data:
 ***Content-based filtering***
 
-- **Menangani *missing value*** : mengecek data apakah data tersebut ada yang bernilai NaN atau tidak, jika terdapat data yang kosong maka akan dihapus menggunakan fungsi dropna. Hal ini dilakukan karena missing value akan memengaruhi kinerja dan harus ada langkah khusus yang perlu diambil untuk mengatasinya.
+- **Menangani *missing value*** : Mengecek apakah ada nilai NaN dalam data; jika ada, data tersebut akan dihapus menggunakan fungsi dropna. Langkah ini diperlukan karena keberadaan nilai yang hilang dapat memengaruhi kinerja dan memerlukan tindakan khusus untuk penanganannya, terutama jika nama bukunya tidak dapat diidentifikasi.
 - **Mengurutkan data** : mengurutkan data secara *ascending*. Hal ini dilakukan karena data yang terurut akan terlihat lebih rapih.
 - **Menangani duplikat data** : Menghapus data yang duplikat dengan fungsi drop_duplicates(). Dalam hal ini, membuang data duplikat pada kolom ‘ISBN’. Hal ini dilakukan karena data duplikat memiliki informasi yang sama sehingga apabila dihapus tidak akan mempengaruhi kinerja.
-- **Konversi data menjadi list** : Melakukan konversi data *series* menjadi *list*. Dalam hal ini, menggunakan fungsi tolist() dari *library numpy*. Hal ini dilakukan untuk menyederhanakan data menjadi bentuk *list*.
-- **Membuat Dictionary** : Membuat *dictionary* untuk menentukan pasangan *key-value* pada data book_id, book_name, book_author dan book_publisher yang telah disiapkan sebelumnya. Hal ini dilakukan untuk persiapan data sebelum model dilatih.
+- **Konversi data menjadi list** : melakukan konversi data *series* menjadi *list* dengan menggunakan fungsi tolist() dari library numpy. Tujuan dari langkah ini adalah untuk menyederhanakan representasi data menjadi bentuk *list*, mempermudah proses pengolahan data lebih lanjut.
+- **Membuat Dictionary** : membuat *dictionary* yang akan menentukan pasangan *key-value* pada data book_id, book_name, book_author, dan book_publisher yang telah disiapkan sebelumnya. Pada tahap ini, data diatur dalam bentuk pasangan atribut buku dan nilainya, menciptakan representasi yang lebih terstruktur untuk persiapan data sebelum dilakukan pelatihan model.
 
 
 ***Collaborative filtering***
 
-- ***Encode*** **fitur User-ID dan ISBN** : Melakukan persiapan data untuk menjadikan (*encode*) fitur ‘User-ID’ dan ‘ISBN’ ke dalam indeks integer. Hal ini diperlukan agar data siap digunakan untuk pemodelan.
-- **Memetakan User-ID dan ISBN** : Petakan ‘User-ID’ dan ‘ISBN’ ke dataframe yang berkaitan. Hal ini diperlukan agar data yang sudah di *encode* dipetakan kemudian dimasukan kedalam dataframe yang berkaitan.
-- **Cek data dan ubah nilai rating**: cek beberapa hal dalam data seperti jumlah *user*, jumlah *book*, dan mengubah nilai *rating* menjadi *float*, cek nilai *minimum* dan *maximum*. Hal ini dilakukan untuk mengecek data yang sudah siap digunakan untuk pemodelan.
-- **Membagi data untuk latih dan validasi** : Membagi dataset menjadi data latih dan data validasi dengan perbandingan 80:20 yaitu 80 persen data akan menjadi data latih dan 20 persen data akan menjadi data validasi . Hal ini dilakukan supaya kita dapat melakukan validasi dengan benar tanpa bias dari model.
-
+- ***Encode*** **fitur User-ID dan ISBN** : melakukan persiapan data dengan melakukan encoding pada fitur ‘User-ID’ dan ‘ISBN’. Proses ini bertujuan untuk mengubah representasi data ke dalam indeks integer, memastikan bahwa data siap untuk digunakan dalam pemodelan. Encoding diperlukan agar model dapat memproses dan memahami fitur-fitur ini dengan lebih efisien.
+- **Memetakan User-ID dan ISBN** : memetakan ‘User-ID’ dan ‘ISBN’ ke dalam dataframe yang relevan. Ini penting agar data yang telah diencode dapat ditempatkan kembali dalam konteks aslinya. Pemetaan ini membantu menjaga keterkaitan data dan memudahkan penggunaan data dalam model.
+- **Cek data dan ubah nilai rating**: Proses berikutnya mencakup pemeriksaan beberapa aspek dalam data, seperti jumlah pengguna (user), jumlah buku (book), dan pengubahan nilai rating menjadi tipe data float. Cek nilai minimum dan maksimum dilakukan untuk memastikan integritas data sebelum proses pemodelan dimulai.
+- **Membagi data untuk latih dan validasi** :  membagi dataset menjadi data latih dan data validasi dengan perbandingan 80:20. Sebanyak 80 persen data akan digunakan untuk melatih model, sementara 20 persen sisanya akan digunakan untuk validasi. Pembagian ini diperlukan untuk melakukan validasi tanpa bias dari model, sehingga model dapat dievaluasi dengan benar.
 ## Modeling
 
 Pada tahap ini, model *machine learning* yang akan dipakai ada 2 algoritma. Berikut algoritma yang akan digunakan:
 
-1.   *Content-based filtering* : algoritma *content-based filtering* dibuat dengan apa yang disukai pengguna pada masa lalu.
-		- **kelebihan** : Model tidak memerlukan data tentang pengguna lain, karena rekomendasi bersifat khusus untuk pengguna ini. Hal ini mempermudah penskalaan ke sejumlah besar pengguna.
-		- **kekurangan** : Model hanya dapat membuat rekomendasi berdasarkan minat pengguna yang ada. Dengan kata lain, model memiliki kemampuan terbatas untuk memperluas minat pengguna yang ada.
-2.   *Collaborative filtering* : algoritma *collaborative filtering* dibuat dengan memanfaatkan tingkat *rating* dari buku tersebut. 
-		- **kelebihan** : Tidak memerlukan pengetahuan domain dan model dapat membantu pengguna menemukan minat baru..
-		- **kekurangan** :Tidak dapat menangani item baru dan sulit menyertakan fitur samping untuk kueri/item.
+1. Content-based Filtering:
+- Kelebihan: Model content-based filtering memberikan rekomendasi yang sangat personal, disesuaikan dengan minat pengguna berdasarkan preferensi masa lalu. Kelebihan ini sangat menguntungkan dalam penskalaan ke sejumlah besar pengguna, karena model tidak memerlukan data pengguna lain. Hal ini dapat meningkatkan efisiensi dan memudahkan implementasi pada platform dengan jumlah pengguna yang besar.
+- Kekurangan: Meskipun model ini efektif dalam memberikan rekomendasi berdasarkan minat pengguna yang ada, kekurangannya terletak pada keterbatasan kemampuan untuk memperluas minat pengguna. Model ini cenderung memberikan rekomendasi yang terpaku pada minat yang sudah diketahui, kurang mampu menggali minat baru atau menghadirkan variasi dalam rekomendasi. Hal ini dapat membatasi pengguna dalam menjelajahi konten yang berbeda atau baru.
+
+Pengaruh pada Keputusan Bisnis atau Pengalaman Pengguna:
+- Keputusan Bisnis: Model content-based filtering dapat menjadi pilihan yang baik untuk bisnis dengan fokus pada personalisasi tinggi, terutama jika platform memiliki informasi detil mengenai preferensi pengguna. Namun, model ini mungkin kurang efektif untuk bisnis yang ingin mendorong eksplorasi produk atau menawarkan variasi kepada pengguna.
+- Pengalaman Pengguna: Meskipun memberikan rekomendasi yang sesuai dengan minat pengguna, model ini dapat membuat pengalaman pengguna menjadi kurang dinamis. Pengguna mungkin merasa terjebak dalam lingkaran minat yang sama tanpa banyak variasi atau penemuan baru.
+
+2. Collaborative Filtering:
+- Kelebihan: Collaborative filtering tidak memerlukan pengetahuan domain dan dapat membantu pengguna menemukan minat baru berdasarkan preferensi pengguna serupa. Kelebihan ini memungkinkan model lebih adaptif terhadap perubahan minat pengguna seiring waktu, menciptakan pengalaman yang dinamis dan responsif.
+- Kekurangan: Model ini memiliki kendala dalam menangani item baru, karena membutuhkan data tingkat rating yang cukup untuk item tertentu sebelum dapat memberikan rekomendasi yang akurat. Selain itu, kesulitan dalam menyertakan fitur samping (contohnya, genre buku) dapat membuat model kurang presisi dalam memahami preferensi pengguna.
+
+Pengaruh pada Keputusan Bisnis atau Pengalaman Pengguna:
+- Keputusan Bisnis: Collaborative filtering dapat menjadi pilihan yang baik untuk bisnis yang ingin mendorong interaksi sosial dan pertukaran rekomendasi antar pengguna. Namun, perlu diingat bahwa kendala terhadap item baru dapat membatasi efektivitas model, terutama dalam lingkungan dengan banyak produk baru.
+- Pengalaman Pengguna: Model ini dapat memberikan pengalaman yang lebih dinamis dan interaktif bagi pengguna dengan menawarkan rekomendasi berdasarkan tingkat kesamaan dengan pengguna lain. Namun, keterbatasan dalam menangani item baru dapat membuat pengguna kehilangan potensi menemukan konten terbaru atau unik.
 
 Hasil dari masing-masing model:
 
@@ -134,15 +158,15 @@ Hasil dari masing-masing model:
 
 Berikut adalah buku yang disukai pengguna di masa lalu:
 
-Tabel 4. buku yang disukai pengguna di masa lalu.
+Tabel 5. buku yang disukai pengguna di masa lalu.
 
 | id          |       book_name                   |   author     | publisher |
 |------------:|----------------------------------:|-------------:|----------:|
 |  0689831420 | 'Wizard of Oz (Aladdin Classics)' | L. Frank Baum| Aladdin   |
 
-Pada tabel 4, dapat dilihat bahwa pengguna menyukai buku yang berjudul 'Wizard of Oz (Aladdin Classics)') yang ditulis oleh L.Frank Baum. Maka hasil 5 rekomendasi terbaik berdasarkan algoritma *content-based filtering* adalah sebagai berikut :
+Pada tabel 5, dapat dilihat bahwa pengguna menyukai buku yang berjudul 'Wizard of Oz (Aladdin Classics)') yang ditulis oleh L.Frank Baum. Maka hasil 5 rekomendasi terbaik berdasarkan algoritma *content-based filtering* adalah sebagai berikut :
 
-Tabel 5. Hasil rekomendasi algoritma *content-based filtering*
+Tabel 6. Hasil rekomendasi algoritma *content-based filtering*
 
 |   |                       book_name                   | author        |
 |--:|--------------------------------------------------:|--------------:|
@@ -152,13 +176,14 @@ Tabel 5. Hasil rekomendasi algoritma *content-based filtering*
 | 3 | Aerie Tik Tok of Oz: Defiant-Cn16dp               | Baum          |
 | 4 | The Diary of a Young Girl: The Definitive Edition | Anne Frank    | 
 
-Dapat dilihat pada tabel 5, ada 5 buku yang direkomendasikan penulisnya yang sama yaitu  L. Frank Baum. Hal ini didasarkan pada kesukaan pembaca atau pengguna pada masa lalu.
+Dapat dilihat pada tabel 6, ada 5 buku yang direkomendasikan penulisnya yang hampir sama yaitu  L. Frank Baum. Hal ini didasarkan pada kesukaan pembaca atau pengguna pada masa lalu.
 
 2. ***Collaborative filtering***
 
 Berikut merupakan buku berdasarkan *rating* yang ada :
 
-![Prediksi CF](https://github.com/rmdlaska11/Proyek-Sistem-Rekomendasi/assets/121273531/5ec53a15-b0f7-478f-96ac-6a58bf744b90)
+![Prediksi CF]!(https://github.com/rmdlaska11/Proyek-Sistem-Rekomendasi/assets/121273531/74a41062-ae62-438c-85a9-629c5dde3e58)
+
 
 Gambar 1. Hasil rekomendasi algoritma *collaborative filtering*
 
@@ -173,7 +198,7 @@ Buku yang direkomendasikan di masa lalu yaitu 'Wizard of Oz (Aladdin Classics)' 
 
 *recommender system precision*: P = $\frac{n of our recommendations that are relevant}{n of items we recommended}$
 
-Dengan begitu hasil presisi yang didapat adalah 100 persen .
+Dengan begitu hasil presisi yang didapat adalah 75 persen .
 
 2.  ***Collaborative filtering***
 
@@ -201,7 +226,7 @@ Gambar 2. Visualisasi RMSE
 
 Bisa dilihat pada Gambar 2. proses training model cukup smooth dan model konvergen pada epochs sekitar 50. Dari proses latih, memperoleh nilai error akhir sebesar sekitar 0.15 dan error pada data validasi sebesar 0.35 . Nilai tersebut cukup bagus untuk sistem rekomendasi.
 
-**Kesimpulan** :  Berhasil menghasilkan 5 rekomendasi buku terbaik menggunakan teknik *content-based filtering* dengan presisi 100 persen dan berhasil menghasilkan 10 rekomendasi buku terbaik menggunakan teknik *collaborative filtering* dengan RMSE sebesar 0.15 .
+**Kesimpulan** :  Cukup berhasil menghasilkan 5 rekomendasi buku terbaik menggunakan teknik *content-based filtering* dengan presisi 75 persen dan berhasil menghasilkan 10 rekomendasi buku terbaik menggunakan teknik *collaborative filtering* dengan RMSE sebesar 0.15 .
 
 **Referensi** :
 
